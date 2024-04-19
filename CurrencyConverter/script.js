@@ -188,14 +188,14 @@ for (let select of dropdowns) {
     })
 }
 
-let fromCurr = (document.querySelector(".from select").value).toLowerCase();
-let toCurr = (document.querySelector(".to select").value).toLowerCase();
+let fromCurr = document.querySelector(".from select");
+let toCurr = document.querySelector(".to select");
 
 const updateMsg = (data) => {
     console.log(data);
-    let result = data[fromCurr][toCurr] * amount.value;
+    let result = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()] * amount.value;
     let msg = document.querySelector(".msg");
-    msg.innerText = `${amount.value} ${fromCurr} = ${result} ${toCurr}`;
+    msg.innerText = `${amount.value} ${fromCurr.value} = ${result} ${toCurr.value}`;
 }
 
 btn.addEventListener("click", async (evt) => {
@@ -205,7 +205,7 @@ btn.addEventListener("click", async (evt) => {
         amtVal = 1;
         amount.value = "1";
     }
-    const URL = `${BASE_URL}/${fromCurr}.json`;
+    const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}.json`;
     let response = await fetch(URL);
     let data = await response.json();
     updateMsg(data);
